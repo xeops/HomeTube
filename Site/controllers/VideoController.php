@@ -6,6 +6,7 @@ use app\models\Video\db\Video;
 use yii\data\Sort;
 use yii\web\Controller;
 use \yii\data\Pagination;
+
 class VideoController extends Controller
 {
 	/**
@@ -17,7 +18,8 @@ class VideoController extends Controller
 	{
 		$time = microtime(true);
 		$sort = new Sort([
-			'attributes' => ['views', 'added' => []],
+			'attributes' => ['views', 'added'],
+			'defaultOrder' => ['added' => SORT_DESC]
 		]);
 
 
@@ -32,8 +34,8 @@ class VideoController extends Controller
 		return $this->render('index', [
 			'videos' => $models,
 			'pages' => $pages,
-			'sort'=>$sort,
-			'time'=>microtime(true) - $time
+			'sort' => $sort,
+			'time' => microtime(true) - $time
 		]);
 	}
 }
