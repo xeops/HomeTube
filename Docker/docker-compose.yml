@@ -1,0 +1,40 @@
+version: '3'
+
+networks:
+    default:
+        driver: bridge
+
+services:
+    db:
+        image: postgres
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: GpaWAT334AAFrFA
+        networks:
+            - default
+        volumes:
+            - "./db:/var/lib/postgresql/data"
+        ports:
+            - "5432:5432"
+    php:
+        image: yiisoftware/yii2-php:7.4-fpm
+        volumes:
+            - "../Site/:/var/www/"
+        depends_on:
+            - db
+        networks:
+            - default
+    nginx:
+        image: nginx:latest
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "../Site/web/:/var/www/web"
+            - "../Site/runtime/logs/:/var/www/app/logs"
+            - "./Nginx:/etc/nginx/conf.d"
+        links:
+            - php
+        networks:
+            - default
