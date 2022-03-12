@@ -24,13 +24,12 @@ use yii\helpers\Console;
  */
 class FixtureVideoController extends Controller
 {
-	public function actionGenerate(?int $count = 1000000, ?bool $regenerate = true)
+	public function actionGenerate(?int $count = 1000000, ?int $regenerate = 1)
 	{
 		$this->stdout("Now we started {$count} with {$regenerate}\n", Console::BOLD);
 
-		$transaction = \Yii::$app->db->beginTransaction(Transaction::REPEATABLE_READ);
 
-		if ($regenerate)
+		if ($regenerate == 1)
 		{
 			Video::deleteAll();
 		}
@@ -49,9 +48,8 @@ class FixtureVideoController extends Controller
 		catch (\Throwable $exception)
 		{
 			$this->stderr($exception->getMessage());
-			$transaction->rollBack();
+
 			return;
 		}
-		$transaction->commit();
 	}
 }

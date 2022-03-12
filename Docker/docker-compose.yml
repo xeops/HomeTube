@@ -1,8 +1,5 @@
 version: '3'
 
-networks:
-    default:
-        driver: bridge
 
 services:
     db:
@@ -10,8 +7,7 @@ services:
         restart: always
         environment:
             POSTGRES_PASSWORD: GpaWAT334AAFrFA
-        networks:
-            - default
+
         volumes:
             - "./db:/var/lib/postgresql/data"
         ports:
@@ -22,13 +18,12 @@ services:
             - "../Site/:/var/www/"
         depends_on:
             - db
-        networks:
-            - default
+
     nginx:
         image: nginx:latest
         container_name: nginx
         ports:
-            - "80:80"
+            - "8000:80"
             - "443:443"
         volumes:
             - "../Site/web/:/var/www/web"
@@ -36,5 +31,3 @@ services:
             - "./Nginx:/etc/nginx/conf.d"
         links:
             - php
-        networks:
-            - default

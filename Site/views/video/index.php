@@ -1,9 +1,19 @@
 <?php
-
-/** @var yii\web\View $this */
-
-$this->title = 'Welcome to tube';
+use yii\helpers\Html;
+use yii\widgets\LinkPager;
 ?>
-<div class="index">
+	<h1>Videos</h1>
+<?= $time ?>
+	<ul>
+		<?php foreach ($videos as $video): ?>
+			<li>
+				<?= Html::encode("{$video->title}") ?>:
+				<?= $video->views ?>
+			</li>
+		<?php endforeach; ?>
+	</ul>
 
-</div>
+<?= LinkPager::widget(['pagination' => $pages]) ?>
+<?=
+ $sort->link('views') . ' | ' . $sort->link('added');
+?>
