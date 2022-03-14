@@ -17,7 +17,7 @@ class m220312_114457_video extends Migration
 			'title' => $this->string()->notNull(),
 			'thumbnail' => $this->string()->defaultValue('/assets/img/thumbnail.png'),
 			'duration' => $this->integer()->unsigned(),
-			'views' => $this->bigInteger()->unsigned()->defaultValue(0),
+			'views' => $this->integer()->unsigned()->defaultValue(0),
 			'added' => $this->dateTime()->defaultExpression('now()')
 		]);
 	}

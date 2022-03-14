@@ -21,6 +21,8 @@ $sort->link('views') . ' | ' . $sort->link('added');
 			<div class="card-body">
 				<h5 class="card-title"><?= Html::encode("{$video->title}") ?></h5>
 				<p class="card-text">Duration: <?= $video->duration ?></p>
+				<p class="card-text">
+					Duration: <?= (($hh = $video->duration / 3600 %( 60 * 60) ) && $hh >= 1 ? "$hh h. " : "") . (($mm = $video->duration / 60 % 60) && $mm >= 1 ? "{$mm} min. " : "") . $video->duration % 60 ?> sec.</p>
 				<p class="card-text">Views: <?= $video->views ?></p>
 				<p class="card-text">Added: <?= $video->added ?></p>
 			</div>
@@ -34,10 +36,6 @@ $sort->link('views') . ' | ' . $sort->link('added');
 	'lastPageLabel' => true,
 ])
 ?>
-
-<?= \nterms\pagesize\PageSize::widget([
-	'sizes' => $pages
-]) ?>
 
 
 <style>

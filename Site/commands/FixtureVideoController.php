@@ -40,7 +40,7 @@ class FixtureVideoController extends Controller
 				$video = new Video();
 				$video->title = "Video #{$i}";
 				$video->duration = mt_rand(0, 86399);
-				$video->views = mt_rand(0, PHP_INT_MAX);
+				$video->views = mt_rand(0, 2000000000);
 
 				$video->save();
 			}
